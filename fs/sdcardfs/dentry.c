@@ -26,7 +26,7 @@
  *          0: tell VFS to invalidate dentry
  *          1: dentry is valid
  */
-static int sdcardfs_d_revalidate(struct dentry *dentry, struct nameidata *nd)
+static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 {
 	int err = 1;
 	struct path parent_lower_path, lower_path;
@@ -37,7 +37,7 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, struct nameidata *nd)
 	struct inode *inode;
 	struct sdcardfs_inode_data *data;
 
-	if (nd && nd->flags & LOOKUP_RCU)
+	if (flags & LOOKUP_RCU)
 		return -ECHILD;
 
 	spin_lock(&dentry->d_lock);
