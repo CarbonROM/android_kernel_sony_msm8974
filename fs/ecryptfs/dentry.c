@@ -57,7 +57,7 @@ static int ecryptfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	lower_mnt = ecryptfs_dentry_to_lower_mnt(dentry);
 	if (!lower_dentry->d_op || !lower_dentry->d_op->d_revalidate)
 		goto out;
-	rc = lower_dentry->d_op->d_revalidate(lower_dentry, nd);
+	rc = lower_dentry->d_op->d_revalidate(lower_dentry, flags);
 
 	if (dentry->d_inode) {
 		struct inode *lower_inode =
